@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_request') }}" method=post class=add-entry>
+      <dl>
+	<dt>Title:
+	<dd><input type=text size=30 name=title>
+	<dt>Description:
+	<dd><textarea name=description rows=5 cols=40></textarea>
+	<dt>Client:
+	<dd><input type=text size=30 name=client>
+	<dt>Priority:
+	<dd><input type=text size=30 name=priority>
+	<dt>Target Date:
+	<dd><input type=text size=30 name=target_date>
+	<dt>Ticket Url:
+	<dd><input type=text size=50 name=ticket_url>
+	<dt>Product Area:
+	<dd><input type=text size=10 name=product_area>
+	<dd><input type=submit value=Save>	
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=requests>
+  {% for request in requests %}
+    <li><h2>{{ request.title }}</h2>
+    <li>{{ request.description }}
+    <li>{{ request.client }}
+    <li>{{ request.priority }}
+    <li>{{ request.target_date }}
+    <li>{{ request.ticket_url }}
+    <li>{{ request.product_area }}
+  {% else %}
+    <li><em>No requests recorded.</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
+	
