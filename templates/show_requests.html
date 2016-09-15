@@ -8,16 +8,25 @@
 	<dt>Description:
 	<dd><textarea name=description rows=5 cols=40></textarea>
 	<dt>Client:
-	<dd><input type=text size=30 name=client>
+          <select name="client">
+            <option value="Client A">Client A</option>
+            <option value="Client B">Client B</option>
+            <option value="Client C">Client C</option>
+          </select>
 	<dt>Priority:
-	<dd><input type=text size=30 name=priority>
+	<dd><input type=text size=5 name=priority>
 	<dt>Target Date:
-	<dd><input type=text size=30 name=target_date>
+	<dd><input type=text size=10 name=target_date>
 	<dt>Ticket Url:
-	<dd><input type=text size=50 name=ticket_url>
+	<dd><input type=text size=40 name=ticket_url>
 	<dt>Product Area:
-	<dd><input type=text size=10 name=product_area>
-	<dd><input type=submit value=Save>	
+	  <select name="product_area">
+            <option value="policies">Policies</option>
+            <option value="billing">Billing</option>
+            <option value="claims">Claims</option>
+	    <option value="reports">Reports</option>
+          </select>
+	<dd><input type=submit value=Save>
       </dl>
     </form>
   {% endif %}
@@ -35,4 +44,3 @@
   {% endfor %}
   </ul>
 {% endblock %}
-	
