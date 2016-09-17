@@ -1,4 +1,29 @@
 {% extends "layout.html" %}
+<style>
+[draggable] {
+user-select: none;
+}
+</style>
+<script type="text/javascript">
+var source;
+
+function dragStarted(evt){
+source=evt.target;
+evt.dataTransfer.setData("text/plain", evt.target.innerHTML);
+evt.dataTransfer.effectAllowed = "move";
+}
+
+function draggingOver(evt){
+evt.preventDefault();
+evt.dataTransfer.dropEffect = "move";
+}
+
+function dropped(evt){
+evt.preventDefault();
+evt.stopPropagation();
+source.innerHTML = evt.dataTransfer.getData("text/plain");
+}
+</script>
 {% block body %}
   {% if session.logged_in %}
     <form action="{{ url_for('add_request') }}" method=post class=add-entry>
@@ -32,6 +57,7 @@
   {% endif %}
   <ul class=requests>
   {% for request in requests %}
+    <ol draggable="true" ondragstart="dragStarted(event)" ondragover="draggingOver(event)" ondrop="dropped(event)">
     <li><h2>{{ request.title }}</h2>
     <li>{{ request.description }}
     <li>{{ request.client }}
@@ -39,6 +65,7 @@
     <li>{{ request.target_date }}
     <li>{{ request.ticket_url }}
     <li>{{ request.product_area }}
+    </ol>
   {% else %}
     <li><em>No requests recorded.</em>
   {% endfor %}
